@@ -1,0 +1,29 @@
+a:link {
+	color: #401817;
+}
+
+a:visited {
+	color: #401817;
+}
+
+a:active {
+	color: #7D2A20;
+}
+
+a:hover {
+	color: #7D2A20;
+}
+
+#cancelar:hover {
+	color: #7D2A20;
+}
+
+.ui-growl {
+	top: 60px;
+}
+.ui-widget{
+	font-size: 1em;
+}
+.btn{
+	padding: 0px;
+}

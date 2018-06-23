@@ -1,0 +1,109 @@
+
+<ui:composition template="/template/master.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="title">
+        OGI - VRI
+    </ui:define>
+
+	<ui:define name="titleCont">
+		<span>listado de Investigadores</span>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<h:outputLabel for="nombres" value="Nombre:"
+							styleClass="control-label" />
+
+						<p:inputText autocomplete="off" id="nombres"
+							styleClass="form-control"
+							value="#{investigadorMB.investigador.nombre}" maxlength="120"
+							label="nombres" />
+					</div>
+				</div>
+
+				<div class="col-sm-8 text-right">
+					<div class="form-group box-main-btn">
+						<span style="display: block; height: 30px;"></span>
+						<p:commandButton value="Limpiar" update="lstInvestigador,nombres"
+							actionListener="#{investigadorMB.limpiar()}"
+							styleClass="btn btn-default" icon="icon-eraser" ajax="true" />
+						<p:commandButton value="Buscar" update="lstInvestigador"
+							actionListener="#{investigadorMB.listar()}"
+							styleClass="btn btn-default"
+							icon="icon-magnifying-glass" ajax="true" />
+						<p:commandButton value="Nuevo" action="#{investigadorMB.nuevo()}"
+							styleClass="btn btn-primary" icon="icon-add-to-list" ajax="false" />
+
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="form-group table-responsive box-table-class">
+
+						<p:dataTable id="lstInvestigador" var="investigador"
+							value="#{investigadorMB.lstInvestigador}" paginator="true"
+							paginatorPosition="top" rowsPerPageTemplate="10,20,30,40,50"
+							rows="10" styleClass="table table-bordered"
+							emptyMessage="No existen registros" rowIndexVar="item"
+							style="margin-bottom:0">
+
+							<p:column headerText="Item" style="width:40px;text-align:center">
+								<h:outputText value="#{item + 1}" />
+							</p:column>
+
+							<p:column headerText="Nombre" style="width:300px">
+								<h:outputText value="#{investigador.nombre}" />
+							</p:column>
+							<p:column headerText="DNI" style="width:100px;text-align:center">
+								<h:outputText value="#{investigador.dni}" />
+							</p:column>
+							<p:column headerText="Código UNI" style="width:100px;text-align:center">
+								<h:outputText value="#{investigador.cod_uni}" />
+							</p:column>
+							<p:column headerText="Teléfono" style="width:100px;text-align:center">
+								<h:outputText value="#{investigador.telefono}" />
+							</p:column>
+							<p:column headerText="Email">
+								<h:outputText value="#{investigador.email}" />
+							</p:column>
+							
+							<p:column headerText="Accion"
+								style="width:120px;text-align:center" exportable="false">
+								<p:commandButton title="Modificar"
+									action="#{investigadorMB.modificar(investigador)}" ajax="false"
+									icon="ui-icon ui-icon-pencil" styleClass="colorSuccess" />
+								<p:commandButton icon="ui-icon ui-icon-trash" title="Eliminar"
+									action="#{investigadorMB.eliminar(investigador)}" ajax="false" />
+							</p:column>
+						</p:dataTable>
+					</div>
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12 text-right">
+					<p:commandButton value="XLS" styleClass="btn btn-default"
+						ajax="false" />
+				</div>
+			</div>
+
+
+		</h:form>
+	</ui:define>
+
+	<ui:define name="footerCont">
+		<script type="text/javascript" charset="utf-8">
+			$("#sidebar li").removeClass("active");
+			$("#sidebar-3").addClass("active");
+		</script>
+	</ui:define>
+</ui:composition>

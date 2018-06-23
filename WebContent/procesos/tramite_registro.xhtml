@@ -1,0 +1,536 @@
+
+<ui:composition template="/template/master.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="title">
+        OGI - VRI
+    </ui:define>
+
+	<ui:define name="titleCont">
+		<span>Registro de Tramites </span>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="frmTramite" styleClass="box_tabs_style">
+			<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+			<p:fieldset legend="Investigador" toggleable="true" toggleSpeed="500">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<h:outputLabel for="cod_uni" value="Código UNI:"
+								styleClass="control-label" />
+
+							<p:inputText autocomplete="off" id="cod_uni"
+								styleClass="form-control"
+								value="#{tramiteMB.investigador.cod_uni}" maxlength="120"
+								label="cod_uni" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group box-main-btn">
+							<span style="display: block; height: 30px;"></span>
+							<p:commandButton value="Buscar"
+								actionListener="#{tramiteMB.buscarInvXCodigo()}"
+								styleClass="btn btn-default btn-border"
+								icon="icon-magnifying-glass" ajax="true"
+								update="nombre_inv,growl" />
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="form-group">
+							<h:outputLabel for="nombre_inv" value="Investigador :"
+								styleClass="control-label" />
+
+							<p:inputText autocomplete="off" readonly="true" id="nombre_inv"
+								styleClass="form-control"
+								value="#{tramiteMB.investigador.nombre}" maxlength="120"
+								label="nombre_inv" />
+						</div>
+					</div>
+				</div>
+
+			</p:fieldset>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="form-group"></div>
+				</div>
+			</div>
+			<p:fieldset legend="Proyecto" toggleable="true" toggleSpeed="500">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<h:outputLabel for="codigo_ocpla" value="Proyecto:"
+								styleClass="control-label" />
+
+							<p:inputText autocomplete="off" id="codigo_ocpla"
+								styleClass="form-control"
+								value="#{tramiteMB.proyecto.codigo_ocpla}" maxlength="120"
+								label="codigo_ocpla" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group box-main-btn">
+							<span style="display: block; height: 30px;"></span>
+							<p:commandButton value="Buscar"
+								actionListener="#{tramiteMB.buscarProyXCodigo()}"
+								styleClass="btn btn-default btn-border"
+								icon="icon-magnifying-glass" ajax="true"
+								update="c_ocpla,c_ocef,nombre_proy,growl" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<h:outputLabel for="c_ocpla" value="Código OCPLA :"
+								styleClass="control-label" />
+
+							<p:inputText autocomplete="off" readonly="true" id="c_ocpla"
+								styleClass="form-control"
+								value="#{tramiteMB.proyecto.codigo_ocpla}" maxlength="120"
+								label="c_ocpla" />
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<h:outputLabel for="c_ocef" value="Código OCEF :"
+								styleClass="control-label" />
+
+							<p:inputText autocomplete="off" readonly="true" id="c_ocef"
+								styleClass="form-control"
+								value="#{tramiteMB.proyecto.codigo_ocef}" maxlength="120"
+								label="c_ocef" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="form-group">
+							<h:outputLabel for="nombre_proy" value="Proyecto :"
+								styleClass="control-label" />
+
+							<p:inputTextarea autocomplete="off" readonly="true"
+								id="nombre_proy" styleClass="form-control" rows="4"
+								value="#{tramiteMB.proyecto.nombre}" maxlength="120"
+								label="nombre_proy" />
+						</div>
+					</div>
+				</div>
+			</p:fieldset>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="form-group"></div>
+				</div>
+			</div>
+			<p:fieldset legend="Partidas Presupuestales" toggleable="true"
+				toggleSpeed="500">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<h:outputLabel for="nombre" value="Descripción:"
+								styleClass="control-label" />
+
+							<p:inputText autocomplete="off" id="nombre"
+								styleClass="form-control" value="#{tramiteMB.partida.nombre}"
+								maxlength="120" label="nombre" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group box-main-btn">
+							<span style="display: block; height: 30px;"></span>
+							<p:commandButton value="Buscar"
+								actionListener="#{tramiteMB.buscarPartida()}"
+								styleClass="btn btn-default btn-border"
+								icon="icon-magnifying-glass" ajax="true" update="lstPartida" />
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="form-group table-responsive box-table-class">
+
+							<p:dataTable id="lstPartida" var="partida"
+								value="#{tramiteMB.lstPartida}" paginator="true"
+								paginatorPosition="top" rowsPerPageTemplate="10,20,30,40,50"
+								rows="10" styleClass="table table-bordered"
+								emptyMessage="No existen registros" rowIndexVar="item"
+								style="margin-bottom:0">
+
+								<p:column headerText="Item" style="width:40px;text-align:center">
+									<h:outputText value="#{item + 1}" />
+								</p:column>
+
+								<p:column headerText="Específica"
+									style="width:100px;text-align:center">
+									<h:outputText value="#{partida.especifica}" />
+								</p:column>
+
+								<p:column headerText="Nombre">
+									<h:outputText value="#{partida.nombre}" />
+								</p:column>
+
+								<p:column headerText="Detalle">
+									<h:outputText value="#{partida.detalle}" />
+								</p:column>
+								<p:column headerText="Accion"
+									style="width:120px;text-align:center" exportable="false">
+									<p:commandButton title="Seleccionar"
+										action="#{tramiteMB.agregarPartida(partida)}" ajax="true"
+										icon="ui-icon ui-icon-plus" styleClass="colorSuccess"
+										update="frmTramite:lstDetalle,frmTramite:importe" />
+								</p:column>
+							</p:dataTable>
+						</div>
+					</div>
+
+
+				</div>
+
+			</p:fieldset>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="form-group"></div>
+				</div>
+			</div>
+			<p:fieldset legend="Detalle de Trámite" toggleable="true"
+				toggleSpeed="500">
+
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="form-group table-responsive box-table-class">
+
+							<p:dataTable id="lstDetalle" var="detalle"
+								value="#{tramiteMB.tramite.lstDetalle}" paginator="true"
+								paginatorPosition="top" rowsPerPageTemplate="10,20,30,40,50"
+								rows="10" styleClass="table table-bordered"
+								emptyMessage="No existen registros" rowIndexVar="item"
+								style="margin-bottom:0">
+
+								<p:column headerText="Item" style="width:40px;text-align:center">
+									<h:outputText value="#{item + 1}" />
+								</p:column>
+								<p:column headerText="Específica">
+									<h:outputText value="#{detalle.partida.especifica}" />
+								</p:column>
+								<p:column headerText="Descripción">
+									<h:outputText value="#{detalle.partida.nombre}" />
+								</p:column>
+								<p:column headerText="Monto">
+									<h:inputText value="#{detalle.importe}" />
+								</p:column>
+
+								<p:column headerText="Accion"
+									style="width:120px;text-align:center" exportable="false">
+									<p:commandButton title="Eliminar"
+										action="#{tramiteMB.eliminarDetalle(detalle)}" ajax="true"
+										icon="ui-icon ui-icon-close" styleClass="colorSuccess"
+										update="frmTramite:lstDetalle" />
+								</p:column>
+							</p:dataTable>
+						</div>
+					</div>
+
+
+				</div>
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="form-group">
+							<h:outputLabel for="importe" value="Importe Total:"
+								styleClass="control-label" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<p:inputText autocomplete="off" id="importe" readonly="true"
+								styleClass="form-control" value="#{tramiteMB.tramite.importe}"
+								label="importe" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group box-main-btn">
+							<p:commandButton value="Calcular"
+								actionListener="#{tramiteMB.actualizarDetalle()}"
+								styleClass="btn btn-default" icon="icon-calculator" ajax="true"
+								update="lstDetalle,importe" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="form-group">
+							<h:outputLabel for="certificado" value="Certificado:"
+								styleClass="control-label" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<p:inputText autocomplete="off" id="certificado"
+								styleClass="form-control"
+								value="#{tramiteMB.tramite.certificado}" maxlength="40"
+								label="certificado" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="form-group">
+							<h:outputLabel for="tipo_tramite" value="Tipo de trámite:"
+								styleClass="control-label" />
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<h:selectOneMenu id="tipo_tramite" styleClass="form-control"
+								value="#{tramiteMB.tramite.tipo_tramite}">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="SUBVENCIÓN" itemValue="VIATICOS" />
+								<f:selectItem itemLabel="VIÁTICOS" itemValue="VIATICOS" />
+								<f:selectItem itemLabel="ENCARGO INTERNO"
+									itemValue="ENCARGO INTERNO" />
+								<f:selectItem itemLabel="ORDEN DE COMPRA"
+									itemValue="ORDEN DE COMPRA" />
+								<f:selectItem itemLabel="ORDEN DE SERVICIO"
+									itemValue="ORDEN DE SERVICIO" />
+							</h:selectOneMenu>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="form-group">
+							<h:outputLabel for="estado_tramite" value="Estado del trámite:"
+								styleClass="control-label" />
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<h:selectOneMenu id="estado_tramite" styleClass="form-control"
+								value="#{tramiteMB.tramite.estado_tramite}">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="EN TRÁMITE" itemValue="EN TRAMITE" />
+								<f:selectItem itemLabel="GIRADO" itemValue="GIRADO" />
+								<f:selectItem itemLabel="RENDIDO" itemValue="RENDIDO" />
+								<f:selectItem itemLabel="OBSERVADO" itemValue="OBSERVADO" />
+								<f:selectItem itemLabel="ARCHIVADO" itemValue="ARCHIVADO" />
+							</h:selectOneMenu>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="form-group">
+							<h:outputLabel for="fecha_inicio" value="Fecha de inicio:"
+								styleClass="control-label" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<p:calendar id="fecha_inicio" size="12"
+								value="#{tramiteMB.tramite.fecha_inicio}" pattern="dd/MM/yyyy"
+								label="fecha_inicio" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<h:outputLabel for="fecha_fin" value="Fecha de fin:"
+								styleClass="control-label" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<p:calendar id="fecha_fin" size="12"
+								value="#{tramiteMB.tramite.fecha_fin}" pattern="dd/MM/yyyy"
+								label="fecha_fin" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+
+					<div class="col-sm-2">
+						<div class="form-group">
+							<h:outputLabel for="exp_ocef" value="Exp. OCEF:"
+								styleClass="control-label" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<p:inputText autocomplete="off" id="exp_ocef"
+								styleClass="form-control" value="#{tramiteMB.tramite.exp_ocef}"
+								maxlength="40" label="exp_ocef" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<h:outputLabel for="exp_siaf" value="Exp. SIAF:"
+								styleClass="control-label" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<p:inputText autocomplete="off" id="exp_siaf"
+								styleClass="form-control" value="#{tramiteMB.tramite.exp_siaf}"
+								maxlength="40" label="exp_siaf" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+
+					<div class="col-sm-2">
+						<div class="form-group">
+							<h:outputLabel for="id_ocef" value="ID Trámite OCEF:"
+								styleClass="control-label" />
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="form-group">
+							<p:inputText autocomplete="off" id="id_ocef"
+								styleClass="form-control" value="#{tramiteMB.tramite.id_ocef}"
+								label="id_ocef" />
+						</div>
+					</div>
+				</div>
+			</p:fieldset>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="form-group"></div>
+				</div>
+			</div>
+			<p:fieldset legend="Detalle de Rendición" toggleable="true"
+				toggleSpeed="500">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="form-group">
+							<h:outputLabel for="importe_rendicion" value="Importe rendicion:"
+								styleClass="control-label" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<p:inputText autocomplete="off" id="importe_rendicion"
+								styleClass="form-control"
+								value="#{tramiteMB.tramite.importe_rendicion}"
+								label="importe_rendicion" />
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group box-main-btn">
+							<p:commandButton value="Calcular devolución"
+								actionListener="#{tramiteMB.actualizarDevolucion()}"
+								styleClass="btn btn-default" icon="icon-calculator" ajax="true"
+								update="importe_devolucion" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="form-group">
+							<h:outputLabel for="importe_devolucion"
+								value="Importe devolución:" styleClass="control-label" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<p:inputText autocomplete="off" id="importe_devolucion"
+								readonly="true" styleClass="form-control"
+								value="#{tramiteMB.tramite.importe_devolucion}"
+								label="importe_devolucion" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<h:outputLabel for="exp_ocef_devolucion"
+								value="Exp. OCEF Devolución:" styleClass="control-label" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<p:inputText autocomplete="off" id="exp_ocef_devolucion"
+								styleClass="form-control"
+								value="#{tramiteMB.tramite.exp_ocef_devolucion}" maxlength="40"
+								label="exp_ocef_devolucion" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="form-group">
+							<h:outputLabel for="exp_ocef_rendicion"
+								value="Exp. OCEF rendición:" styleClass="control-label" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<p:inputText autocomplete="off" id="exp_ocef_rendicion"
+								styleClass="form-control"
+								value="#{tramiteMB.tramite.exp_ocef_rendicion}" maxlength="40"
+								label="exp_ocef_rendicion" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<h:outputLabel for="fecha_rendicion" value="Fecha de rendición:"
+								styleClass="control-label" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<p:calendar id="fecha_rendicion" size="12"
+								value="#{tramiteMB.tramite.fecha_rendicion}"
+								pattern="dd/MM/yyyy" label="fecha_rendicion" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="form-group">
+							<h:outputLabel for="responsable_rendicion"
+								value="Responsable OCEF:" styleClass="control-label" />
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<p:inputText autocomplete="off" id="responsable_rendicion"
+								styleClass="form-control"
+								value="#{tramiteMB.tramite.responsable_rendicion}"
+								maxlength="40" label="responsable_rendicion" />
+						</div>
+					</div>
+				</div>
+			</p:fieldset>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="form-group"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12 text-right">
+					<div class="form-group box-main-btn">
+
+						<p:commandButton value="Grabar"
+							actionListener="#{tramiteMB.grabar()}"
+							styleClass="btn btn-primary " icon="icon-save" ajax="false" />
+						<p:commandButton value="Cancelar"
+							actionListener="#{tramiteMB.cancelar()}"
+							styleClass="btn btn-default" icon="icon-eraser" ajax="false" />
+
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="footerCont">
+		<script type="text/javascript" charset="utf-8">
+			$("#sidebar li").removeClass("active");
+			$("#sidebar-2").addClass("active");
+		</script>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es" class="no-js" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta charset="utf-8" />
+	<title><ui:insert name="title"></ui:insert></title>
+	<meta name="generator" content="Bootply" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<link rel="shortcut icon" type="image/png"
+		href="#{resource['img/favicon.ico']}" />
+	<link
+		href='https://fonts.googleapis.com/css?family=Roboto:400,300,500|Ubuntu+Condensed'
+		rel='stylesheet' type='text/css' />
+	<h:outputStylesheet name="css/bootstrap.min.css" />
+	<h:outputStylesheet name="css/main_base.css" />
+	<h:outputStylesheet name="css/uni.css" />
+
+	<ui:insert name="headCont">
+		<h:outputStylesheet library="icomoon" name="css/font_ico.css" />
+	</ui:insert>
+
+</h:head>
+<h:body>
+	<nav class="navbar navbar-default navbar-fixed-top base_primary"
+		role="banner">
+		<div class="container">
+			<div class="navbar-header">
+				<button class="navbar-toggle" type="button" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a href="" class="navbar-brand"
+					style="display: table; padding-top: 5px; padding-bottom: 5px;"><img
+					src="../resources/img/logo_uni_blanco.png" alt="" height="45" /></a>
+			</div>
+			<nav class="collapse navbar-collapse" role="navigation"
+				style="height: 70px">
+				<ul class="nav navbar-nav navbar-right">
+
+					<li class="dropdown">
+						<button class="navbar-account-btn" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
+							<img class="rounded" width="36" height="36"
+								src="../resources/img/icon-user.png" alt="Juan Balceda" />
+							Bienvenido <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu dropdown-menu-right">
+							<li><a href="">
+									<h5 class="navbar-upgrade-heading">
+										Administrador <small class="navbar-upgrade-notification"
+											id="date_text"></small>
+									</h5>
+							</a></li>
+							<li class="divider"></li>
+							<li class="navbar-upgrade-version">Version: 1.0.3</li>
+							<li class="divider"></li>
+							<li class="navbar-upgrade-version"><h:form>
+									<p:commandLink ajax="false"
+										actionListener="#{loginMB.cerrarSesion()}">
+										<h:outputText value="Cerrar Sesión" />
+									</p:commandLink>
+								</h:form></li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</nav>
+
+	<ui:insert name="masthead">
+	</ui:insert>
+
+	<!--main-->
+	<div class="container base_fondo_fff"
+		style="min-height: 500px; border-radius: 4px; margin-top: 35px; margin-bottom: 30px; padding-bottom: 20px;">
+		<div class="row">
+			<!--left-->
+			<div class="col-md-2" id="leftCol">
+				<h:form>
+					<ul class="nav nav-stacked" id="sidebar">
+						<li id="sidebar-1"><a href="../inicio/panel.xhtml"><i
+								class="icon-pie-chart"></i> Dashboards</a></li>
+						<li id="sidebar-2"><a
+							href="../procesos/tramite_listado.xhtml"><i
+								class="icon-clipboard"></i> Trámites</a></li>
+						<li id="sidebar-3"><a href="../maestro/inv_listado.xhtml"><i
+								class="icon-users"></i> Investigadores</a></li>
+						<li id="sidebar-4"><a href="../maestro/proy_listado.xhtml"><i
+								class="icon-briefcase"></i> Proyectos</a></li>
+						<li id="sidebar-5"><a href="../maestro/partida_listado.xhtml"><i
+								class="icon-list"></i> Partidas</a></li>
+						<li id="sidebar-6"><a href="../maestro/usuario_listado.xhtml"><i
+								class="icon-key"></i> Usuarios</a></li>
+						<li id="sidebar-7"><a href=""><i class="icon-cog"></i>
+								Próximamente</a></li>
+					</ul>
+				</h:form>
+			</div>
+			<!--/left-->
+
+			<!--right-->
+			<div class="col-md-10" style="padding-right: 30px">
+				<h2 id="sec0" class="title-style">
+					<ui:insert name="titleCont">Titulo
+        </ui:insert>
+				</h2>
+
+				<!-- seccion para el contenido -->
+				<ui:insert name="content">
+				</ui:insert>
+
+			</div>
+			<!--/right-->
+		</div>
+		<!--/row-->
+	</div>
+	<!--/container-->
+	<h:outputScript name="js/jquery.min.js" />
+	<h:outputScript name="js/bootstrap.min.js" />
+	<h:outputScript name="js/scripts.js" />
+	<ui:insert name="footerCont"></ui:insert>
+	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.1/jquery-ui-timepicker-addon.min.js"></script>
+
+</h:body>
+</html>

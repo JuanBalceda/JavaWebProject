@@ -1,0 +1,98 @@
+
+<ui:composition template="/template/master.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="title">
+        OGI - VRI
+    </ui:define>
+
+	<ui:define name="titleCont">
+		<span>Registro de Partidas Presupuestales </span>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+
+			<div class="row">
+
+				<div class="col-sm-4">
+					<div class="form-group">
+						<h:outputLabel for="codigo" value="Código:"
+							styleClass="control-label" />
+
+						<p:inputText autocomplete="off" readonly="true" id="codigo"
+							styleClass="form-control" value="#{partidaMB.partida.id}"
+							style="width:60px" maxlength="120" label="codigo" />
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+
+				<div class="col-sm-4">
+					<div class="form-group">
+						<h:outputLabel for="especifica" value="Específica:"
+							styleClass="control-label" />
+
+						<p:inputText autocomplete="off" id="especifica"
+							styleClass="form-control" value="#{partidaMB.partida.especifica}"
+							maxlength="120" label="especifica" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-8">
+					<div class="form-group">
+						<h:outputLabel for="nombre" value="Descripción:"
+							styleClass="control-label" />
+
+						<p:inputText autocomplete="off" id="nombre"
+							styleClass="form-control" value="#{partidaMB.partida.nombre}"
+							maxlength="500" label="nombre" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-8">
+					<div class="form-group">
+						<h:outputLabel for="detalle" value="Detalle:"
+							styleClass="control-label" />
+
+						<p:inputTextarea autocomplete="off" id="detalle"
+							styleClass="form-control" rows="4"
+							value="#{partidaMB.partida.detalle}" maxlength="100"
+							label="detalle" />
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-4 text-right">
+					<div class="form-group box-main-btn">
+
+						<p:commandButton value="Grabar"
+							actionListener="#{partidaMB.grabar()}"
+							styleClass="btn btn-primary " icon="icon-save" ajax="false"
+							update="codigo" />
+						<p:commandButton value="Cancelar" action="#{partidaMB.cancelar()}"
+							styleClass="btn btn-default" ajax="false" />
+
+					</div>
+				</div>
+			</div>
+			<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+		</h:form>
+	</ui:define>
+
+	<ui:define name="footerCont">
+		<script type="text/javascript" charset="utf-8">
+			$("#sidebar li").removeClass("active");
+			$("#sidebar-5").addClass("active");
+		</script>
+	</ui:define>
+</ui:composition>
